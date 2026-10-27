@@ -58,11 +58,11 @@ svg text{fill:var(--muted);font-size:12px;font-family:inherit}
   <div class="card controls">
     <div class="ctl">
       <label for="nNum">Number of dice</label>
-      <div class="row"><input type="range" id="nRange" min="1" max="100" value="2"><input type="number" id="nNum" min="1" max="100" value="2"></div>
+      <div class="row"><input type="range" id="nRange" min="1" max="100" value="2"><input type="number" id="nNum" min="1" max="50" value="2"></div>
     </div>
     <div class="ctl">
       <label for="fNum">Faces per die</label>
-      <div class="row"><input type="range" id="fRange" min="2" max="100" value="6"><input type="number" id="fNum" min="2" max="100" value="6"></div>
+      <div class="row"><input type="range" id="fRange" min="2" max="100" value="6"><input type="number" id="fNum" min="2" max="20" value="6"></div>
       <div class="chips" id="presets"></div>
     </div>
   </div>
@@ -192,7 +192,7 @@ function diceUI(){
   var el=$('dice');
   if(!st.rolled){el.innerHTML='';return}
   var shown=st.rolled.slice(0,40).map(function(v){return '<span class="die">'+v+'</span>'}).join('');
-  if(st.rolled.length>40)shown+='<span class="die">…</span>';
+  if(st.rolled.length>40)shown+='<span class="die">...</span>';
   el.innerHTML=shown+'<span class="total">= '+st.roll+'</span>';
 }
 
@@ -204,7 +204,7 @@ function render(clearRoll){
 function setN(v){st.n=clamp(v,1,100);$('nRange').value=$('nNum').value=st.n;render(true)}
 function setF(v){st.f=clamp(v,2,100);$('fRange').value=$('fNum').value=st.f;presets();render(true)}
 function presets(){
-  $('presets').innerHTML=[4,6,8,10,12,20,100].map(function(f){return '<button class="chip'+(f===st.f?' on':'')+'" data-f="'+f+'">d'+f+'</button>'}).join('');
+  $('presets').innerHTML=[4,6,8,10,12,20].map(function(f){return '<button class="chip'+(f===st.f?' on':'')+'" data-f="'+f+'">d'+f+'</button>'}).join('');
 }
 
 $('nRange').addEventListener('input',function(e){setN(e.target.value)});
